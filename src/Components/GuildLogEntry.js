@@ -1,67 +1,76 @@
 import React from 'react';
 
-const renderMessage = (logEntry) => {
+import ItemInline from './ItemInline';
+
+import './GuildLogEntry.css';
+
+const renderMessage = (logEntry, items) => {
     const {time, user, ...rest} = logEntry;
-    const WhenWho = () => <><span>{`${time} ${user} `}</span></>
+    const formatedTime = new Date(time).toLocaleString();
+    const WhenWho = () => <><div>{`${formatedTime} ${user}`}</div></>
     switch(rest.type) {
-        case 'treasury':
+        case 'treasury': {
+            const item = items[rest.item_id];
+            if(!item) console.log("LOGENTRY", logEntry) 
             return (
-                <div>
+                <>
                     <WhenWho/>
-                    <span>{`added ${rest.count} x item ${rest.item_id} to treasury`}</span>
-                </div>
+                    <div>{`added to treasury`}</div>
+                    {item ? <ItemInline item={item} count={rest.count}/> : '◌'}
+                </>
             );
-        case 'upgrade':
+        }
+        case 'upgrade': {
             return (
-                <div>
+                <>
                     <WhenWho/>
-                    <span>{`approved upgrade ${rest.count} x item ${rest.item_id}`}</span>
-                </div>
+                    <div>{`approved upgrade ${rest.upgrade_id}`}</div>
+                </>
             );
+        }
         case 'motd':
             return (
-                <div>
+                <>
                     <WhenWho/>
-                    <span>{`changed the motd to "${rest.motd}"`}</span>
-                </div>
+                    <div>{`changed the motd to "${rest.motd}"`}</div>
+                </>
             );
         case 'joined':
             return (
-                <div>
+                <>
                     <WhenWho/>
-                    <span>{`joined"`}</span>
-                </div>
+                    <div>{`joined"`}</div>
+                </>
             );
         case 'invited':
             return (
-                <div>
+                <>
                     <WhenWho/>
-                    <span>{`was invited by ${rest.invited_by}`}</span>
-                </div>
+                    <div>{`was invited by ${rest.invited_by}`}</div>
+                </>
             );
         case 'rank_change':
             return (
-                <div>
+                <>
                     <WhenWho/>
-                    <span>{`was changed from rank ${rest.old_rank} to ${rest.new_rank} by ${rest.changed_by || 'SYSTEM'}`}</span>
-                </div>
+                    <div>{`was changed from rank ${rest.old_rank} to ${rest.new_rank} by ${rest.changed_by || 'SYSTEM'}`}</div>
+                </>
             );
         default:
             return (
-                <div>
+                <>
                     <WhenWho/>
-                    <span>{JSON.stringify(rest)}</span>
-                </div>
+                    <div>{JSON.stringify(rest)}</div>
+                </>
             );
     }
 }
 
 export default function GuildLogEntry(props) {
-    const {logEntry} = props;
-
+    const {logEntry, items} = props;
     return (
         <div className="guild-log-entry">
-            {renderMessage(logEntry)}
+            {renderMessage(logEntry, items)}
         </div>
     );
 }

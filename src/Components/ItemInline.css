@@ -1,0 +1,25 @@
+.item-inline {
+    display: inline-block;
+    cursor: pointer;
+}
+.item-inline-icon {
+    width: 5em;
+    height: 5em;
+    margin: 0 0.2em;
+}
+
+.item-inline:hover {
+    text-decoration: underline;
+}
+.item-inline:active {
+    font-weight: 500;
+}
+
+.item-rarity-junk {color: #AAA}
+.item-rarity-basic {color: #000}
+.item-rarity-fine {color: #62A4DA}
+.item-rarity-masterwork {color: #1a9306}
+.item-rarity-rare {color: #fcd00b}
+.item-rarity-exotic {color: #ffa405}
+.item-rarity-ascended {color: #fb3e8d}
+.item-rarity-legendary {color: #4C139D}

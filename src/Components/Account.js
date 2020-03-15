@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useCookies} from 'react-cookie';
 
-import {wrappedFetch} from '../utils/urlHelpper';
+import {wrappedFetch} from '../utils/urlHelper';
 
 export default function Account(props) {
     const [{gw2ApiKey}] = useCookies(['gw2ApiKey']);

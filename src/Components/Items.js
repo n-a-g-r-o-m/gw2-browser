@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import {wrappedFetch} from '../utils/urlHelpper';
+import {wrappedFetch} from '../utils/urlHelper';
 
 import Item from './Item';
 

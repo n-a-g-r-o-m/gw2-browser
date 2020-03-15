@@ -1,0 +1,10 @@
+{
+    "Junk": {"color": "#AAA"},
+    "Basic": {"color": "#000"},
+    "Fine": {"color": "#62A4DA"},
+    "Masterwork": {"color": "#1a9306"},
+    "Rare": {"color": "#fcd00b"},
+    "Exotic": {"color": "#ffa405"},
+    "Ascended": {"color": "#fb3e8d"},
+    "Legendary": {"color": "#4C139"}
+}

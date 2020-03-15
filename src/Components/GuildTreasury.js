@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import {wrappedFetch} from '../utils/urlHelpper';
+import {wrappedFetch} from '../utils/urlHelper';
 
 import Items from './Items';
 import Item from './Item';

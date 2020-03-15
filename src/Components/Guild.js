@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import {wrappedFetch} from '../utils/urlHelpper';
+import {wrappedFetch} from '../utils/urlHelper';
 
 import GuildTreasury from './GuildTreasury';
 import GuildLog from './GuildLog';
