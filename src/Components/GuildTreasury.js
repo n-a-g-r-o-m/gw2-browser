@@ -16,7 +16,6 @@ export default function Guild(props) {
         wrappedFetch(`/guild/${id}/treasury`, setTreasury, setError, {}, 'item_id');
     }, [id])
 
-    console.log({treasury, upgrades});
     if(error) {
         return <div className="error">{error}</div>;
     }

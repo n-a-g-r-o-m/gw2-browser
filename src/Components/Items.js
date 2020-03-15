@@ -40,7 +40,6 @@ export default function Items(props) {
     const sortedItems = items
         .map(item => ({...item, prices: prices[item.id]}))
         .sort(typeof sortBy === 'function' ? sortBy : sortByFuncs[sortBy])
-    console.log({items, prices, sortedItems});
     if(error) {
         return <div className="error">{error}</div>;
     }

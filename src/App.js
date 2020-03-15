@@ -1,37 +1,49 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {CookiesProvider, useCookies} from 'react-cookie';
 
-import Account from "./Components/Account";
-import Guild from "./Components/Guild";
+import {wrappedFetch} from './utils/urlHelper';
+
+import NavBar from './Components/NavBar';
+import Account from './Components/Account';
+import Guild from './Components/Guild';
+import Map from './Components/Map';
 
 import './App.css';
 
-const ApiKeyManager = (props) => {
-  const [{gw2ApiKey}, setApiKeyCookie, removeApiKeyCookie] = useCookies(['gw2ApiKey']);
-
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if(value) {
-      setApiKeyCookie('gw2ApiKey', value, { path: '/' });
-    } else {
-      removeApiKeyCookie('gw2ApiKey', { path: '/' });
-    }
-  }
-  console.log({gw2ApiKey})
-  return <div>API key: <input value={gw2ApiKey} onChange={event => handleChange(event)} /></div>;
-}
-
 // All new
 function App() {
+  const [{gw2ApiKey}] = useCookies(['gw2ApiKey']);
+  const [account, setAccount] = useState({});
+  const [guilds, setGuilds] = useState({});
+  const [error, setError] = useState(undefined);
+
+  useEffect(() => {
+      if(gw2ApiKey) {
+          wrappedFetch('/account', setAccount, setError)
+      }
+  }, [gw2ApiKey])
+
+  useEffect(() => {
+    const guildIds = (account.guilds || []);
+      if(guildIds.length > 0) {
+        guildIds.forEach(guildId =>
+          wrappedFetch(`/guild/${guildId}`, newGuild => setGuilds({...guilds, [newGuild.id]: newGuild}), setError)
+        )
+      }
+  }, [account])
+
+  console.log({account, guilds})
   return (
     <CookiesProvider>
       <Router>
-        <ApiKeyManager />
+        <NavBar guilds={Object.values(guilds)} />
+        {error && <div>{error}</div>}
         <Switch>
-          <Route exact path="/" component={Account} />
-          <Route path="/guild/:id" component={Guild} />
-          <Route render={() => "404 - Not Found!"} />
+          <Route exact path='/'><Account account={account} guilds={guilds}/></Route>
+          <Route path='/guild/:id' component={Guild} />
+          <Route path='/map' component={Map} />
+          <Route render={() => '404 - Not Found!'} />
         </Switch>
       </Router>
     </CookiesProvider>

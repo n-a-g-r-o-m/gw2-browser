@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -28,16 +30,15 @@ export default function Guild(props) {
         wrappedFetch(`/guild/${id}/upgrades`, setGuildUpgradeIds, setError);
     }, [id])
 
-    console.log({guild, guildUpgradeIds, allUpgrades});
     if(error) {
         return <div className="error">{error}</div>;
     }
     return (
         <div className="guild">
-            <fieldset>
-                <legend>Guild:</legend>
-                <span>Name: {guild.name} [{guild.tag}]</span>
-            </fieldset>
+            <Breadcrumbs aria-label="breadcrumb">
+                <Typography color="textPrimary">Guilds</Typography>
+                <Typography color="textPrimary">{guild.name}</Typography>
+            </Breadcrumbs>
             <Tabs
                 value={selectedTab}
                 indicatorColor="primary"

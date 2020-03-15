@@ -15,7 +15,6 @@ export default function Account(props) {
         }
     }, [gw2ApiKey])
 
-    console.log(account);
     if(error) {
         return <div className="error">{error}</div>;
     }

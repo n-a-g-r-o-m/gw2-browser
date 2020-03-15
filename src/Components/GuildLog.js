@@ -24,7 +24,6 @@ export default function GuildLog(props) {
         }
     }, [log])
 
-    console.log({log, items});
     if(error) {
         return <div className="error">{error}</div>;
     }

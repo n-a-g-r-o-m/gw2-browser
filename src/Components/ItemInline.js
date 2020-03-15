@@ -9,12 +9,9 @@ export default function ItemInline(props) {
     const {item, count} = props;
     let chatLink = item.chat_link;
     if(count > 1) {
-        console.log("BEFORE", {chatLink});
         const chatLinkData = base64StringToArray(chatLink.slice(2, -1));
         chatLinkData[1] = count;
-        console.log({chatLinkData});
         chatLink = `[&${arrayToBase64String(chatLinkData)}]`;
-        console.log("AFTER", {chatLink});
     }
     return (
         <div className="item-inline">

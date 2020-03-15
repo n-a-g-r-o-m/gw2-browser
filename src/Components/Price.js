@@ -4,7 +4,6 @@ import './Price.css';
 
 export default function Price(props) {
     const {unit_price = 0} = (((props || {}).price || {}).buys || {});
-    console.log("Price",props, unit_price)
     const price = {
         gold: Math.floor(unit_price/10000),
         silver: Math.floor(unit_price/100) % 100,

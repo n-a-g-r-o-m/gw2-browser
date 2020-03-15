@@ -11,7 +11,6 @@ const renderMessage = (logEntry, items) => {
     switch(rest.type) {
         case 'treasury': {
             const item = items[rest.item_id];
-            if(!item) console.log("LOGENTRY", logEntry) 
             return (
                 <>
                     <WhenWho/>
