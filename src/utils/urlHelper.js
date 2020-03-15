@@ -25,7 +25,7 @@ export const wrappedFetch = (url, resolve, reject, params = {}, arrayToMapBy = f
     const fetchData = () => {
         fetch(gw2UrlGenerator(url, params))
             .then(response => {
-                if(response.status === 200) {
+                if([200, 206].includes(response.status)) {
                     response.json()
                         .then(data => resolve(
                             arrayToMapBy && Array.isArray(data)

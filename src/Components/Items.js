@@ -27,16 +27,20 @@ export default function Items(props) {
     const {ids = [], renderItem, sortBy} = props;
 
     const [items, setItems] = useState([]);
+    const [prices, setPrices] = useState({});
     const [error, setError] = useState(undefined);
 
     useEffect(() => {
         if(ids.length > 0) {
             wrappedFetch(`/items`, setItems, setError, {ids})
+            wrappedFetch(`/commerce/prices`, setPrices, setError, {ids}, 'id')
         }
     }, [ids])
 
-    const sortedItems = items.sort(typeof sortBy === 'function' ? sortBy : sortByFuncs[sortBy])
-    console.log({items});
+    const sortedItems = items
+        .map(item => ({...item, prices: prices[item.id]}))
+        .sort(typeof sortBy === 'function' ? sortBy : sortByFuncs[sortBy])
+    console.log({items, prices, sortedItems});
     if(error) {
         return <div className="error">{error}</div>;
     }
