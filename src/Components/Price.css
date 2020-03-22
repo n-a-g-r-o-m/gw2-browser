@@ -1,21 +1,25 @@
+.price {
+  display: inline-block;
+}
+
 .coin:after {
-    content: '';
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+  content: "";
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .coin-copper::after {
-    background-image: url('../resources/img/Copper_coin.png');
+  background-image: url("../resources/img/Copper_coin.png");
 }
 
 .coin-silver::after {
-    background-image: url('../resources/img/Silver_coin.png');
+  background-image: url("../resources/img/Silver_coin.png");
 }
 
 .coin-gold::after {
-    background-image: url('../resources/img/Gold_coin.png');
+  background-image: url("../resources/img/Gold_coin.png");
 }

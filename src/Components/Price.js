@@ -1,22 +1,30 @@
-import React from 'react';
+import React from "react";
 
-import './Price.css';
+import "./Price.css";
 
 export default function Price(props) {
-    const {unit_price = 0} = (((props || {}).price || {}).buys || {});
-    const price = {
-        gold: Math.floor(unit_price/10000),
-        silver: Math.floor(unit_price/100) % 100,
-        copper: unit_price % 100
-    }
+  const { multiplier = 1 } = props;
+  const { unit_price = 0 } = ((props || {}).price || {}).buys || {};
+  const price = unit_price * multiplier;
 
-    return (
-        <div className="price">
-            {Object.keys(price).map(
-                coinType => price[coinType] > 0
-                    ? <span className={`coin coin-${coinType}`}>{price[coinType]}</span>
-                    : null
-            )}
-        </div>
-    );
+  if (price === 0) {
+    return "priceless";
+  }
+  const priceInCoins = {
+    gold: Math.floor(price / 10000),
+    silver: Math.floor(price / 100) % 100,
+    copper: price % 100
+  };
+
+  return (
+    <div className="price">
+      {Object.keys(priceInCoins).map(coinType =>
+        priceInCoins[coinType] > 0 ? (
+          <span className={`coin coin-${coinType}`}>
+            {priceInCoins[coinType]}
+          </span>
+        ) : null
+      )}
+    </div>
+  );
 }
