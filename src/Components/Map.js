@@ -13,7 +13,8 @@ export default function Map(props) {
       style={{ height: "calc(100vh - 64px)", width: "100vw" }}
     >
       <TileLayer
-        url={`https://tiles.guildwars2.com/${continentId}/0/{z}/{x}/{y}.jpg`}
+        url={`https://tiles{s}.guildwars2.com/${continentId}/1/{z}/{x}/{y}.jpg`}
+        subdomains={[1, 2, 3, 4]}
       />
       {/*
             <Marker position={position}>
