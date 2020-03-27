@@ -16,7 +16,7 @@ import "./Guild.css";
 export default function Guild(props) {
   const { id } = useParams();
 
-  const [selectedTab, setSelectedTab] = React.useState(0);
+  const [selectedTab, setSelectedTab] = useState(0);
   const [allUpgrades, setAllUpgrades] = useState({});
   const [guild, setGuild] = useState({});
   const [guildUpgradeIds, setGuildUpgradeIds] = useState([]);
