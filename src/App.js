@@ -14,12 +14,14 @@ import "./App.css";
 // All new
 function App() {
   const [{ gw2ApiKey }] = useCookies(["gw2ApiKey"]);
+  const [assets, setAssets] = useState({});
   const [account, setAccount] = useState({});
   const [continents, setContinents] = useState([]);
   const [guilds, setGuilds] = useState({});
   const [error, setError] = useState(undefined);
 
   useEffect(() => {
+    wrappedFetch("/files", setAssets, setError, { ids: "all" }, "id");
     wrappedFetch("/continents", setContinents, setError, { ids: "all" });
   }, []);
 
@@ -42,7 +44,7 @@ function App() {
     }
   }, [account]);
 
-  console.log({ account, guilds });
+  console.log({ account, guilds, assets, continents });
   return (
     <CookiesProvider>
       <Router>
@@ -53,7 +55,12 @@ function App() {
             <Account account={account} guilds={guilds} />
           </Route>
           <Route path="/guild/:id" component={Guild} />
-          <Route path="/map/:continentId" component={Map} />
+          <Route
+            path="/map/:continentId"
+            render={props => (
+              <Map {...props} assets={assets} continents={continents} />
+            )}
+          />
           <Route render={() => "404 - Not Found!"} />
         </Switch>
       </Router>
