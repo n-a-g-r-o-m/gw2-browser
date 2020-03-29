@@ -36,8 +36,13 @@ export default function Map(props) {
     >
       <LeafletMapContext.Consumer>
         {map => {
-          const southWest = map.unproject([0, 48000], map.getMaxZoom());
-          const northEast = map.unproject([38000, 0], map.getMaxZoom());
+          const unproject = coord => map.unproject(coord, map.getMaxZoom());
+          const zoomScale = size => [
+            size[0] * (1 - 0.1 * (map.getMaxZoom() - 1)),
+            size[1] * (1 - 0.1 * (map.getMaxZoom() - 1))
+          ];
+          const southWest = unproject([0, 48000]);
+          const northEast = unproject([38000, 0]);
 
           map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
           const tileLayer = (
@@ -68,7 +73,7 @@ export default function Map(props) {
               </select>
               {Object.values(floor?.regions || {}).map(region => [
                 <Marker
-                  position={map.unproject(region.label_coord, map.getMaxZoom())}
+                  position={unproject(region.label_coord)}
                   icon={L.divIcon({
                     className: "my-div-icon",
                     html: region.name
@@ -91,11 +96,12 @@ export default function Map(props) {
                           <Marker
                             key={`${gameMap.id}_${poi.type}_${poi.id}`}
                             title={poi.name}
-                            position={map.unproject(
-                              poi.coord,
-                              map.getMaxZoom()
-                            )}
-                            icon={L.icon({ iconUrl })}
+                            position={unproject(poi.coord)}
+                            icon={L.icon({
+                              iconUrl,
+                              iconSize: [20, 20],
+                              iconAnchor: [10, 10]
+                            })}
                             onClick={() =>
                               navigator.clipboard.writeText(poi.chat_link)
                             }
